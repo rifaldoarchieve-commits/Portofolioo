@@ -1,0 +1,1533 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio • Gaya LinkedIn</title>
+  <meta name="description" content="Portfolio/branding pribadi dengan tampilan seperti halaman LinkedIn." />
+  <style>
+    :root{
+      --bg: #f3f2ef;
+      --card: #ffffff;
+      --text: #191919;
+      --muted: #666666;
+      --border: rgba(0,0,0,.12);
+      --shadow: 0 1px 2px rgba(0,0,0,.06);
+      --blue: #0a66c2;
+      --blue2:#004182;
+      --pill: #eef3f8;
+      --radius: 12px;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+
+    .container{ width: min(1120px, 94vw); margin: 0 auto; }
+
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+
+    .logo{
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: var(--blue);
+      color: #fff;
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      flex: 0 0 auto;
+    }
+
+    .search{
+      flex: 1;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      background: var(--pill);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 999px;
+      padding: 10px 12px;
+      min-width: 160px;
+    }
+    .search input{
+      border: 0;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+    .nav a:hover{ border-color: rgba(0,0,0,.08); background: #fafafa; color: var(--text); }
+
+    .btn{
+      cursor:pointer;
+      border: 1px solid rgba(10,102,194,.35);
+      background: rgba(10,102,194,.10);
+      color: var(--blue2);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 650;
+      transition: transform .12s ease, background .12s ease;
+      white-space: nowrap;
+      box-shadow: 0 1px 0 rgba(0,0,0,.06);
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(10,102,194,.14); }
+
+    .btn.primary{
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(10,102,194,.18);
+    }
+    .btn.primary:hover{ background: var(--blue2); }
+
+    /* Layout */
+    .layout{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: 18px;
+      padding: 18px 0 34px;
+      align-items: start;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-pad{ padding: 16px; }
+
+    /* Profile Header (enhanced) */
+    .cover{
+      height: 150px;
+      position: relative;
+      background:
+        linear-gradient(135deg, rgba(10,102,194,.28), rgba(10,102,194,.10)),
+        url('assets/cover-profile.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .cover::after{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.00) 60%);
+    }
+
+    .profile{
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .avatar{
+      position: absolute;
+      left: 16px;
+      top: 98px; /* cover lebih tinggi */
+      width: 92px;
+      height: 92px;
+      border-radius: 999px;
+      border: 4px solid #fff;
+      background: #e5e7eb;
+      overflow: hidden;
+      display:grid;
+      place-items:center;
+      font-weight: 800;
+      color: rgba(0,0,0,.6);
+      box-shadow: 0 10px 28px rgba(0,0,0,.12);
+    }
+    .avatar img{ width: 100%; height: 100%; object-fit: cover; }
+
+    .profile-body{
+      padding: 16px;
+      padding-top: 72px;
+      display:grid;
+      gap: 10px;
+    }
+
+    .name{ font-size: 20px; font-weight: 800; letter-spacing: -.2px; }
+    .headline{ color: var(--text); font-size: 14px; }
+    .meta{ color: var(--muted); font-size: 13px; display:flex; gap: 10px; flex-wrap: wrap; }
+
+    .actions{ display:flex; gap: 10px; flex-wrap: wrap; align-items:center; }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(6,95,70,.10);
+      border: 1px solid rgba(6,95,70,.22);
+      color: #065f46;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .mini-skills{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+
+    /* Section headings */
+    .section-title{
+      display:flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: -.2px;
+    }
+
+    .section-title span{ color: var(--muted); font-size: 13px; }
+
+    /* Experience list */
+    .exp{ padding: 10px 16px 6px; }
+
+    .exp-item{
+      display:grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .exp-item:last-child{ border-bottom: 0; }
+
+    .org-logo{
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: #f5f5f5;
+      overflow: hidden;
+      display:grid;
+      place-items:center;
+      font-weight: 800;
+      color: rgba(0,0,0,.55);
+    }
+    .org-logo img{ width:100%; height:100%; object-fit: cover; }
+
+    .exp-title{ font-weight: 750; margin: 0; }
+    .exp-sub{ color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+    .bullets{ margin: 10px 0 0; padding-left: 18px; color: #2b2b2b; font-size: 14px; }
+    .bullets li{ margin: 6px 0; }
+
+    .tags{ display:flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f7f7f7;
+      border: 1px solid rgba(0,0,0,.08);
+      font-size: 12px;
+      color: #2b2b2b;
+    }
+
+    .docs{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .doc-thumb{
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: #fafafa;
+      overflow:hidden;
+      cursor:pointer;
+      position: relative;
+      aspect-ratio: 4 / 3;
+    }
+
+    .doc-thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+    .doc-label{
+      position:absolute;
+      left: 8px;
+      bottom: 8px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.10);
+      font-size: 12px;
+      color: #1f2937;
+    }
+
+    /* Sidebar */
+    .sidebar{ position: sticky; top: 70px; display:grid; gap: 12px; }
+    .sidebar h3{ margin: 0 0 10px; font-size: 14px; letter-spacing: -.2px; }
+
+    .side-row{ display:flex; align-items:flex-start; gap: 10px; color: #2b2b2b; font-size: 13px; }
+    .side-row .dot{ width: 8px; height: 8px; border-radius: 99px; background: var(--blue); margin-top: 6px; }
+    .side-muted{ color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+
+    .quick-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+    .about-text{
+      margin: 0 0 12px;
+      color: #2b2b2b;
+      font-size: 13.5px;
+      line-height: 1.6;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    /* Training & Certifications */
+    .certs{ display: grid; gap: 12px; }
+
+    .cert-item{
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: #fafafa;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    .cert-logo{
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-weight: 800;
+      color: rgba(0,0,0,.55);
+    }
+
+    .cert-logo img{ width:100%; height:100%; object-fit: cover; }
+
+    .cert-title{
+      margin: 0;
+      font-weight: 750;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .cert-meta{
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .cert-actions{
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cert-link{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(10,102,194,.25);
+      background: rgba(10,102,194,.08);
+      color: var(--blue2);
+      font-size: 12.5px;
+      font-weight: 650;
+    }
+    .cert-link:hover{ background: rgba(10,102,194,.12); }
+
+    footer{ color: var(--muted); font-size: 12.5px; padding: 16px 0 28px; }
+
+    /* Modal (Dokumentasi) */
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 60;
+    }
+    .modal.open{ display:flex; }
+
+    .modal-card{
+      width: min(980px, 96vw);
+      background: #fff;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    .modal-top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+    }
+
+    .modal-title{ font-weight: 750; font-size: 14px; color: #1f2937; }
+
+    .close{
+      cursor:pointer;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #f6f6f6;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 650;
+    }
+
+    .modal-body{ background: #111; display:grid; place-items:center; }
+    .modal-body img{ width: 100%; height: auto; display:block; max-height: 80vh; object-fit: contain; }
+
+    /* ====== Welcome Popup (Rekomendasi Laptop) ====== */
+    .welcome-card{
+      width: min(520px, 94vw);
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    .welcome-body{
+      padding: 14px 14px 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .welcome-hero{
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+    }
+
+    .welcome-icon{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: rgba(10,102,194,.10);
+      border: 1px solid rgba(10,102,194,.22);
+      display:grid;
+      place-items:center;
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .welcome-text h4{
+      margin: 0;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+      color: #111827;
+    }
+
+    .welcome-text p{
+      margin: 4px 0 0;
+      color: #374151;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .welcome-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .btn.ghost{
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.14);
+      color: #111827;
+    }
+    .btn.ghost:hover{ background: #fafafa; }
+
+    /* ====== Projects (Sidebar) ====== */
+    .projects{
+      display: grid;
+      gap: 12px;
+    }
+
+    .project-item{
+      padding: 10px;
+      border-radius: 12px;
+      background: #fafafa;
+      border: 1px solid rgba(0,0,0,.08);
+      display: grid;
+      gap: 6px;
+    }
+
+    .project-title{
+      margin: 0;
+      font-weight: 800;
+      font-size: 13.5px;
+      line-height: 1.35;
+    }
+
+    .project-meta{
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .project-desc{
+      margin: 2px 0 0;
+      color: #2b2b2b;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .project-tags{
+      display:flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .project-actions{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .proj-link{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(10,102,194,.25);
+      background: rgba(10,102,194,.08);
+      color: var(--blue2);
+      font-size: 12.5px;
+      font-weight: 650;
+    }
+    .proj-link:hover{ background: rgba(10,102,194,.12); }
+
+    .proj-link.ghost{
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.14);
+      color: #111827;
+    }
+    .proj-link.ghost:hover{ background: #fafafa; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+      .sidebar{ position: static; }
+      .docs{ grid-template-columns: repeat(2, 1fr); }
+      .nav{ display:none; }
+    }
+
+    @media (max-width: 460px){
+      .docs{ grid-template-columns: 1fr; }
+      .avatar{ width: 82px; height: 82px; top: 84px; }
+      .profile-body{ padding-top: 58px; }
+      .search{ display:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="logo" aria-label="Logo">in</div>
+
+        <div class="search" role="search">
+          <span aria-hidden="true">🔎</span>
+          <input placeholder="Cari (demo)" aria-label="Cari" />
+        </div>
+
+        <nav class="nav" aria-label="Navigasi">
+          <a href="#experience">Experience</a>
+          <a href="#leadership">Leadership</a>
+          <a href="#awards">Awards</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a class="btn primary" href="assets/cv.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="layout">
+      <div style="display:grid; gap: 12px;">
+        <section class="card profile" aria-label="Profil">
+          <div class="cover"></div>
+
+          <div class="avatar" title="Foto Profil">
+            <img
+              src="assets/avatar-profile.jpeg"
+              alt="Foto Profil"
+              onerror="this.remove(); this.parentElement.textContent='RT';"
+            />
+          </div>
+
+          <div class="profile-body">
+            <div>
+              <div class="name">Rifaldo Tegar Eka Saputra</div>
+              <div class="headline">Data Analyst • Undergraduate Statistics Student</div>
+              <div class="meta">
+                <span>Semarang, Jawa Tengah, Indonesia</span>
+              </div>
+            </div>
+
+            <div class="actions">
+              <a class="btn primary" href="#contact">Contact</a>
+              <a class="btn" href="#experience">See Experience</a>
+              <span class="badge">🟢 Open to: Internship / Freelance</span>
+            </div>
+
+            <div class="mini-skills">
+              <span class="tag">Data Analysis</span>
+              <span class="tag">Survey & Statistics</span>
+              <span class="tag">Dashboarding</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" class="card" aria-label="Experience">
+          <div class="section-title">
+            <h2>Experience</h2>
+            <span>Professional & Academic</span>
+          </div>
+          <div class="exp" id="expRoot"></div>
+        </section>
+
+        <section id="leadership" class="card" aria-label="Leadership">
+          <div class="section-title">
+            <h2>Leadership & Organizations</h2>
+            <span>Campus roles & committees</span>
+          </div>
+          <div class="exp" id="leadRoot"></div>
+        </section>
+
+        <section id="awards" class="card" aria-label="Awards">
+          <div class="section-title">
+            <h2>Awards & Achievements</h2>
+            <span>Competitions & recognition</span>
+          </div>
+          <div class="exp" id="awardRoot"></div>
+        </section>
+
+        <section id="contact" class="card" aria-label="Contact">
+          <div class="section-title">
+            <h2>Contact</h2>
+            <span>Reach out</span>
+          </div>
+          <div class="card-pad" style="display:grid; gap: 10px;">
+            <div class="side-row">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <div style="font-weight:750;">Email</div>
+                <div class="side-muted"><a href="mailto:rifaldoarchieve@gmail.com">rifaldoarchieve@gmail.com</a></div>
+              </div>
+            </div>
+            <div class="side-row">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <div style="font-weight:750;">Projects</div>
+                <div class="side-muted"><a href="#projects">Lihat daftar project di sidebar</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          © <span id="year"></span> • Portfolio gaya LinkedIn • Built with HTML
+        </footer>
+      </div>
+
+      <aside class="sidebar" aria-label="Sidebar">
+        <section class="card">
+          <div class="card-pad">
+            <h3>About</h3>
+
+            <p class="about-text">
+              Undergraduate Statistics student focused on survey research and data analysis. Experienced in field data collection,
+              reporting, and building dashboards in Looker Studio. Proficient with SPSS, R, and Python (Google Colab) for data
+              cleaning, analysis, and visualization. Open to internship and freelance opportunities in data analysis and research.
+            </p>
+
+            <div class="quick-actions">
+              <a class="btn" href="#experience">View Experience</a>
+              <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">CV</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-label="Training & Certifications">
+          <div class="card-pad">
+            <h3>Training & Certifications</h3>
+            <div class="certs" id="certRoot"></div>
+          </div>
+        </section>
+
+        <!-- ===== Projects (versi B) ===== -->
+        <section class="card" id="projects" aria-label="Projects">
+          <div class="card-pad">
+            <h3>Projects</h3>
+            <div class="projects" id="projectRoot"></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-pad">
+            <h3>Highlights</h3>
+            <div class="side-muted" style="display:grid; gap:6px;">
+              <div>• Survey research & field data collection</div>
+              <div>• Statistical analysis (SPSS/R)</div>
+              <div>• Dashboarding (Looker Studio)</div>
+              <div>• Reporting & presentation</div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ====== Welcome Popup (Rekomendasi Laptop) ====== -->
+  <div class="modal" id="welcomeModal" aria-hidden="true">
+    <div class="welcome-card" role="dialog" aria-modal="true" aria-label="Rekomendasi Perangkat">
+      <div class="modal-top">
+        <div class="modal-title">Rekomendasi</div>
+      </div>
+
+      <div class="welcome-body">
+        <div class="welcome-hero">
+          <div class="welcome-icon" aria-hidden="true">💻</div>
+          <div class="welcome-text">
+            <h4>Lebih nyaman dibuka lewat laptop/desktop</h4>
+            <p>
+              Untuk pengalaman terbaik (layout 2 kolom dan preview dokumentasi),
+              disarankan membuka portfolio ini menggunakan laptop/desktop.
+            </p>
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <button class="btn primary" id="welcomeOkBtn" type="button">OK</button>
+          <button class="btn ghost" id="welcomeDontBtn" type="button">Jangan tampilkan lagi</button>
+        </div>
+
+        <div class="side-muted" style="margin-top:2px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal dokumentasi (yang sudah ada) -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Dokumentasi">
+      <div class="modal-top">
+        <div class="modal-title" id="modalTitle">Documentation</div>
+        <button class="close" id="closeModal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" alt="Dokumentasi" src="" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== DATA (edit di sini) ======
+    // Source: List Experience.pdf
+
+    const EXPERIENCE = [
+      {
+        id: 'exp-01',
+        title: 'Customer Satisfaction Survey – Indomaret Sirojudin Semarang',
+        org: 'Diponegoro University',
+        logo: 'assets/org-undip.png',
+        type: 'Part-time',
+        dates: 'Mar 2025 – Mar 2025 • 1 weeks',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Designed and administered a customer satisfaction survey using purposive sampling.',
+          'Applied Customer Satisfaction Index (CSI) and descriptive analysis to identify key service drivers.',
+          'Prepared a summary report highlighting overall service quality ratings and improvement opportunities.'
+        ],
+        skills: ['Survey Design', 'Customer Satisfaction Index (CSI)', 'Descriptive Analysis', 'Reporting'],
+        docs: ['assets/exp-01-doc-01.jpeg', 'assets/exp-01-doc-02.jpeg']
+      },
+      {
+        id: 'exp-02',
+        title: 'Stunting Survey – Household Respondents (Semarang)',
+        org: 'Diponegoro University',
+        logo: 'assets/org-undip.png',
+        type: 'Part-time',
+        dates: 'Dec 2025 – Dec 2025 • 2 weeks',
+        location: 'North & East Semarang, Central Java, Indonesia',
+        bullets: [
+          'Conducted a household survey to assess whether toddlers in selected households met stunting indicators.',
+          'Implemented purposive sampling and administered questionnaires via paper forms and mobile-based online surveys.',
+          'Performed basic data checking and delivered field reporting to support program monitoring.'
+        ],
+        skills: ['Survey Design', 'Field Data Collection', 'Questionnaire Administration', 'Reporting'],
+        docs: ['assets/exp-02-doc-01.jpeg', 'assets/exp-02-doc-02.jpeg', 'assets/exp-02-doc-03.jpeg']
+      },
+      {
+        id: 'exp-03',
+        title: 'Integrity Values Survey among Elementary School Students',
+        org: 'Diponegoro University',
+        logo: 'assets/org-undip.png',
+        type: 'Part-time',
+        dates: 'Aug 2024 – Aug 2024 • 1 weeks',
+        location: 'Klaten, Central Java, Indonesia',
+        bullets: [
+          "Assessed changes in students’ integrity values at SD Negeri 2 Ngaren using a pretest–posttest design.",
+          'Supported survey execution following an intervention program and ensured response completeness.',
+          'Used paired t-test analysis to evaluate the significance of improvements in integrity scores.'
+        ],
+        skills: ['Survey Design', 'Experimental Design (Pretest–Posttest)', 'Paired t-test', 'Reporting'],
+        docs: ['assets/exp-03-doc-01.jpeg','assets/exp-03-doc-02.jpeg']
+      },
+      {
+        id: 'exp-04',
+        title: 'Statistics Teaching Assistant for Survey Sampling Methods',
+        org: 'Diponegoro University',
+        logo: 'assets/org-undip.png',
+        type: 'Part-time',
+        dates: 'Sep 2025 – Dec 2025 • 4 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Facilitated offline and online classes (40+ students) for Survey Sampling Methods.',
+          'Developed teaching materials and led tutorials on probability/non-probability sampling designs.',
+          'Delivered assessments and guided students on estimation of mean, total, and proportion.'
+        ],
+        skills: ['Teaching', 'Statistics', 'Survey Sampling', 'Material Development', 'Assessment'],
+        docs: ['assets/exp-04-doc-01.jpeg', 'assets/exp-04-doc-02.jpeg','assets/exp-04-doc-03.jpeg']
+      },
+      {
+        id: 'exp-05',
+        title: 'Statistics Teaching Assistant for Statistical Methods',
+        org: 'Diponegoro University',
+        logo: 'assets/org-undip.png',
+        type: 'Part-time',
+        dates: 'Sep 2024 – Dec 2024 • 4 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Assisted in facilitating offline and online classes (40+ students) for Statistical Methods.',
+          'Designed teaching materials, led tutorial sessions, and delivered assessments.',
+          'Covered descriptive analysis, probability distributions, and hypothesis testing.'
+        ],
+        skills: ['Teaching', 'Statistics', 'Hypothesis Testing', 'Material Development'],
+        docs: ['assets/exp-05-doc-01.jpeg', 'assets/exp-05-doc-02.jpeg','assets/exp-05-doc-03.jpeg']
+      },
+      {
+        id: 'exp-06',
+        title: 'Teaching Assistant for Mathematics and Physics',
+        org: 'SMA Negeri 40',
+        logo: 'assets/org-sman40.jpeg',
+        type: 'Part-time',
+        dates: 'Sep 2022 – Sep 2022 • 1 month',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Volunteered as a peer tutor for 150+ students in Mathematics (Compulsory & Advanced) and Physics.',
+          'Conducted weekly online learning sessions via Google Meet and other virtual tools to prepare national exam materials.',
+          'Created simplified learning materials and practice exercises; collaborated with teachers to track student progress.'
+        ],
+        skills: ['Teaching', 'Lesson Planning', 'Material Development', 'Online Learning', 'Communication'],
+        docs: ['assets/exp-06-doc-01.jpeg', 'assets/exp-06-doc-02.jpeg']
+      },
+      {
+        id: 'exp-07',
+        title: 'Internship – Statistics Indonesia (BPS) North Jakarta (Ongoing)',
+        org: 'Badan Pusat Statistik (BPS) – North Jakarta',
+        logo: 'assets/org-bps.png',
+        type: 'Internship',
+        dates: 'Dec 2025 – Feb 2026 • 2 months',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          '...'
+        ],
+        skills: ['...'],
+        docs: ['assets/exp-07-doc-01.jpg']
+      },
+      {
+        id: 'exp-08',
+        title: 'Internship – Kelurahan Penjaringan (North Jakarta)',
+        org: 'Kelurahan Penjaringan',
+        logo: 'assets/org-kelurahan.png',
+        type: 'Internship',
+        dates: 'Jul 2025 – Ags 2025 • 1 month',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Conducted an online social and demographic survey (Jak Survei) targeting RT/RW across Penjaringan for community profiling.',
+          'Designed questionnaires and summarized results for stakeholder reporting.',
+          'Wrote a justification report for procuring additional office computers to support digital operations; managed inbound/outbound mail archives to improve documentation.'
+        ],
+        skills: ['Survey Design', 'Community Profiling', 'Report Writing', 'Administrative Documentation'],
+        docs: ['assets/exp-08-doc-01.jpeg', 'assets/exp-08-doc-02.jpeg','assets/exp-08-doc-03.jpeg']
+      },
+      {
+        id: 'exp-09',
+        title: 'Freelance – Operations Dashboard (PT Jasa Karya Sembada Transport)',
+        org: 'PT JKS Transport',
+        type: 'Freelance',
+        dates: 'Ags 2025 – Ags 2025 • 2 days',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Built an interactive dashboard for monitoring truck delivery orders (DO) with automatic integration to Google Sheets.',
+          'Streamlined the reporting workflow to enable near real-time tracking and improved operational transparency.'
+        ],
+        skills: ['Dashboarding', 'Google Sheets', 'Automation', 'Data Visualization'],
+        docs: ['assets/exp-09-doc-01.jpeg','assets/exp-09-doc-02.jpeg']
+      }
+    ];
+
+    const LEADERSHIP = [
+      {
+        id: 'lead-10',
+        title: 'Senior Staff of Cadre Development',
+        org: 'Nuansa Undip',
+        logo: 'assets/org-nuansa.png',
+        type: 'Part-time (Organization)',
+        dates: 'Mar 2025 – Dec 2025 • 10 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Supported cadre development initiatives, including planning, coordination, and implementation of internal programs.',
+          'Collaborated with the team to execute monthly activities and mentoring sessions.',
+          'Recognition: Staff of the Month (Jul–Aug).'
+        ],
+        skills: ['Leadership', 'Program Coordination', 'Team Collaboration', 'Communication'],
+        docs: ['assets/exp-10-doc-01.jpeg', 'assets/exp-10-doc-02.jpeg']
+      },
+      {
+        id: 'lead-11',
+        title: 'Junior Staff of Cadre Development',
+        org: 'Nuansa Undip',
+        logo: 'assets/org-nuansa.png',
+        type: 'Part-time (Organization)',
+        dates: 'Mar 2024 – Dec 2024 • 10 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Contributed to cadre development activities for new members through training sessions and internal mentoring.',
+          'Assisted in event preparation, documentation, and coordination with cross-functional committees.',
+          'Recognition: Staff of the Year (2024).'
+        ],
+        skills: ['Leadership', 'Event Support', 'Documentation', 'Teamwork'],
+        docs: ['assets/exp-11-doc-01.jpeg', 'assets/exp-11-doc-02.jpeg']
+      },
+      {
+        id: 'lead-12',
+        title: 'Chief Executive – Training Rohis 1',
+        org: 'Nuansa Undip',
+        logo: 'assets/org-nuansa.png',
+        type: 'Part-time (Organization)',
+        dates: 'Aug 2024 – Oct 2024 • 2 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Led a flagship training program for 100+ new Muslim students, overseeing end-to-end planning and execution.',
+          'Managed committee coordination, timeline, and event operations to ensure smooth delivery.',
+          'Supervised documentation and post-event evaluation for continuous improvement.'
+        ],
+        skills: ['Event Management', 'Leadership', 'Operations', 'Stakeholder Coordination'],
+        docs: ['assets/exp-12-doc-01.jpeg', 'assets/exp-12-doc-02.jpeg']
+      },
+      {
+        id: 'lead-13',
+        title: 'Junior Staff of Talent & Interest Development',
+        org: 'HIMASTA Undip',
+        logo: 'assets/org-himasta.png',
+        type: 'Part-time (Organization)',
+        dates: 'Mar 2024 – Dec 2024 • 10 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Supported programs to develop student talent and interests through event planning and execution.',
+          'Handled coordination tasks and maintained event documentation and communication.',
+          'Recognition: Staff of the Month (Nov 2024).'
+        ],
+        skills: ['Program Support', 'Coordination', 'Communication', 'Documentation'],
+        docs: ['assets/exp-13-doc-01.jpeg', 'assets/exp-13-doc-02.jpeg']
+      },
+      {
+        id: 'lead-14',
+        title: 'Event Coordinator – ACCENT (K-Pop Dance Event)',
+        org: 'HIMASTA Undip',
+        logo: 'assets/org-himasta.png',
+        type: 'Part-time (Organization)',
+        dates: 'Sep 2024 – Nov 2024 • 3 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Coordinated a flagship K-Pop dance competition/event in Semarang (mall venue).',
+          'Managed event timeline, internal coordination, and on-site operations to support participants and judges.',
+          'Supported promotion and documentation to increase event visibility.'
+        ],
+        skills: ['Event Coordination', 'Operations', 'Teamwork', 'Documentation'],
+        docs: ['assets/exp-14-doc-01.jpeg', 'assets/exp-14-doc-02.jpeg']
+      },
+      {
+        id: 'lead-15',
+        title: 'Logistics Coordinator – PORSS (Sports & Arts Week)',
+        org: 'HIMASTA Undip',
+        logo: 'assets/org-himasta.png',
+        type: 'Part-time (Organization)',
+        dates: 'Apr 2024 – Jun 2024 • 3 months',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Managed logistics and venue preparation for an inter-cohort sports and arts competition within the Statistics program.',
+          'Coordinated equipment needs, schedule readiness, and on-site setup for multiple activities.',
+          'Worked closely with committees to ensure smooth event execution.'
+        ],
+        skills: ['Logistics', 'Event Operations', 'Coordination', 'Problem Solving'],
+        docs: ['assets/exp-15-doc-01.jpeg', 'assets/exp-15-doc-02.jpeg']
+      }
+    ];
+
+    const AWARDS = [
+      {
+        id: 'awd-16',
+        title: 'Selected Participant – PKM AI (Scientific Article) Internal Selection',
+        org: 'Universitas Diponegoro',
+        logo: 'assets/org-undip.png',
+        type: 'Achievement',
+        dates: 'May 2025 • 1 month',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Selected in an internal selection process for the PKM AI (Scientific Article) track.'
+        ],
+        skills: ['Academic Writing', 'Research', 'Critical Thinking'],
+        docs: ['assets/exp-16-doc-01.jpeg', 'assets/exp-16-doc-02.jpeg']
+      },
+      {
+        id: 'awd-17',
+        title: 'Top 5 – Essay Competition “Week of Stock Competition”',
+        org: 'Universitas Negeri Surabaya',
+        type: 'Achievement',
+        dates: 'Oct 2025 • 1 month',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Placed in Top 5 in an essay competition focused on stock/market themes.'
+        ],
+        skills: ['Essay Writing', 'Research', 'Presentation'],
+        docs: ['assets/exp-17-doc-01.jpeg','assets/exp-17-doc-02.jpeg']
+      },
+      {
+        id: 'awd-18',
+        title: '3rd Place – Essay Competition “Pericardium Vol. 2”',
+        org: 'Poltekkes Kemenkes Bandung',
+        type: 'Achievement',
+        dates: 'Nov 2024 • 1 month',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Won 3rd place in the “Pericardium Vol. 2” essay competition.'
+        ],
+        skills: ['Academic Writing', 'Argumentation', 'Communication'],
+        docs: ['assets/exp-18-doc-01.jpeg','assets/exp-18-doc-02.jpeg']
+      },
+      {
+        id: 'awd-19',
+        title: '3rd Place – Essay Competition “Dokter Data”',
+        org: 'Universitas Diponegoro',
+        logo: 'assets/org-undip.png',
+        type: 'Achievement',
+        dates: 'Sep 2024 • 1 month',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Won 3rd place in an essay competition themed around data and analytics.'
+        ],
+        skills: ['Data Literacy', 'Writing', 'Critical Thinking'],
+        docs: ['assets/exp-19-doc-01.jpeg', 'assets/exp-19-doc-02.jpeg']
+      },
+      {
+        id: 'awd-20',
+        title: 'Semifinalist – Essay Competition “Vokasi Juara”',
+        org: 'BEM Sekolah Vokasi Undip',
+        logo: 'assets/org-undip.png',
+        type: 'Achievement',
+        dates: 'Dec 2025 • 1 month',
+        location: 'Semarang, Central Java, Indonesia',
+        bullets: [
+          'Reached the semifinal stage in the “Vokasi Juara” essay competition.'
+        ],
+        skills: ['Essay Writing', 'Research', 'Communication'],
+        docs: ['assets/exp-20-doc-01.jpeg']
+      },
+      {
+        id: 'awd-21',
+        title: '3rd Place – National Science Competition (Physics), District Level',
+        org: 'SMA Negeri 40',
+        logo: 'assets/org-sman40.jpeg',
+        type: 'Achievement',
+        dates: '2021',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Won 3rd place in a district-level science competition (Physics).'
+        ],
+        skills: ['Physics', 'Problem Solving', 'Analytical Thinking'],
+        docs: ['assets/exp-21-doc-01.jpeg','assets/exp-21-doc-02.jpeg']
+      },
+      {
+        id: 'awd-22',
+        title: '2nd Place – National Wiyatamandala Festival Civic Knowledge Quiz',
+        org: 'SMA Negeri 40',
+        logo: 'assets/org-sman40.jpeg',
+        type: 'Achievement',
+        dates: '(Year not specified)',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Won 2nd place in a civic knowledge quiz competition (cerdas cermat).'
+        ],
+        skills: ['General Knowledge', 'Teamwork', 'Fast Reasoning'],
+        docs: ['assets/exp-22-doc-01.jpeg', 'assets/exp-22-doc-02.jpeg']
+      },
+      {
+        id: 'awd-23',
+        title: '2nd Place – Regional Ramadan Festival General Knowledge Quiz',
+        org: 'SMA Negeri 40',
+        logo: 'assets/org-sman40.jpeg',
+        type: 'Achievement',
+        dates: '(Year not specified)',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Won 2nd place in a regional general knowledge quiz competition (cerdas cermat).'
+        ],
+        skills: ['General Knowledge', 'Teamwork', 'Fast Reasoning'],
+        docs: ['assets/exp-23-doc-01.jpeg']
+      },
+      {
+        id: 'awd-24',
+        title: 'Semifinalist – Astra Honda National Olympiad General Knowledge Quiz',
+        org: 'SMA Negeri 40',
+        logo: 'assets/org-sman40.jpeg',
+        type: 'Achievement',
+        dates: '(2021)',
+        location: 'North Jakarta, DKI Jakarta, Indonesia',
+        bullets: [
+          'Reached the semifinal stage in a national general knowledge quiz competition.'
+        ],
+        skills: ['General Knowledge', 'Teamwork', 'Fast Reasoning'],
+        docs: ['assets/exp-24-doc-01.jpeg']
+      }
+    ];
+
+    const CERTIFICATIONS = [
+      {
+        title: 'Statistical Software Training for Freshmen',
+        issuer: 'Statistics Undip',
+        year: '2023',
+        cert: 'assets/cert-2023-stat-software-freshmen.jpg'
+      },
+      {
+        title: 'General Statistical Software Training',
+        issuer: 'Statistics Undip',
+        year: '2024',
+        cert: 'assets/cert-2024-general-stat-software.pdf'
+      },
+      {
+        title: 'Mini Bootcamp: Excel & SPSS for Data Analysis',
+        issuer: 'Statistics Undip',
+        year: '2024',
+        cert: 'assets/cert-2024-excel-spss-mini-bootcamp.png'
+      },
+      {
+        title: 'Shinergy Career Booster: Data Analyst with Python',
+        issuer: 'Shinergy',
+        year: '2025',
+        cert: 'assets/cert-2025-shinergy-da-python.pdf'
+      },
+      {
+        title: 'Bootcamp Data Analyst (Ousean Group)',
+        issuer: 'Muhammad Fikri',
+        year: '2025',
+        cert: 'assets/cert-2025-bootcamp-da-batch-3.pdf'
+      },
+      {
+        title: 'Bootcamp Data Analyst – Special Skills',
+        issuer: 'Special Skills',
+        year: '2025',
+        cert: 'assets/cert-2025-bootcamp-da-special-skills.pdf'
+      },
+      {
+        title: 'Data Analyst Course (Visualization)',
+        issuer: 'Himasta ITS',
+        year: '2025',
+        cert: 'assets/cert-2025-da-course-visualization.pdf'
+      }
+    ];
+
+    /* ====== Projects (versi B) ====== */
+    const PROJECTS = [
+      {
+        title: 'Stock Risk Management Tool (Maximum Loss Estimator)',
+        year: '2025',
+        role: 'Personal Project',
+        desc: 'A web-based risk management tool designed to estimate the maximum potential loss of a selected stock position over a chosen holding period. The app helps users evaluate downside risk by translating key inputs (investment size, time horizon, and risk threshold) into an interpretable risk outcome, enabling more disciplined decision-making before entering a trade. Built to support quick scenario checks and clearer investment risk awareness for retail investors.',
+        demo: 'https://rifaldoarchieve-commits.github.io/Testtt/',
+        repo: '',
+        tags: ['Web App','Risk Management', 'Stocks','Decision Support']
+      },
+      {
+        title: 'Consumption & Activity Patterns vs Obesity (Interactive Dashboard)',
+        year: '2025',
+        role: 'Group Project',
+        desc: 'An interactive Looker Studio dashboard that explores how dietary consumption patterns and physical activity behaviors relate to obesity. The report highlights key indicators across demographic groups, compares activity intensity and eating habits, and surfaces trends that may explain obesity risk. Built to support quick insights through filters, segment breakdowns, and clear KPI-style visuals for decision-making and storytelling.',
+        demo: 'https://lookerstudio.google.com/u/0/reporting/156feabc-1d55-46de-bad8-3894073abd85/page/p_df31qxfryd	',
+        repo: '',
+        tags: ['Dashboard', 'Looker Studio', 'Data Visualization', 'Public Health']
+      },
+      {
+        title: 'Indonesia Poverty Modeling Infographic (CLR vs OLS)',
+        year: '2025',
+        role: 'Group Project',
+        desc: 'An infographic comparing OLS vs CLR for modeling Indonesia’s Poverty Gap Index (P1) using socio-economic predictors. Findings show CLR outperforms OLS by capturing clustered effects, with recommendations focusing on integrated economic–infrastructure support, improving education access, strengthening education & health services, and cluster-targeted interventions.',
+        demo: 'assets/infografis.png',
+        repo: '',
+        tags: ['Infographic', 'Data Storytelling', 'Poverty Analytics', 'Regression', 'Clustering']
+      },
+{
+  title: 'LinkedIn-Style Portfolio Website ',
+  year: '2025',
+  role: 'Frontend / Personal Branding Website',
+  desc: 'A static, LinkedIn-inspired portfolio website built with pure HTML, CSS, and vanilla JavaScript to present my profile, experiences, certifications, and documentation in a clean two-column layout. The site includes responsive sections, a documentation preview modal (images/PDF), and a lightweight welcome popup with “don’t show again” behavior using localStorage. Designed as a self-managed personal branding page that remains accessible and easy to share without depending on third-party platform availability.',
+  demo: 'https://github.com/rifaldoarchieve-commits/Portofolio_Fix',  
+  repo: '',     // 
+  tags: ['HTML', 'CSS', 'Responsive Design', 'GitHub Pages']
+}
+    ];
+
+    // ====== RENDERER ======
+    const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='480'%3E%3Crect width='100%25' height='100%25' fill='%23f3f2ef'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22' fill='%23666'%3EDocumentation%3C/text%3E%3C/svg%3E";
+
+    function initials(text){
+      const parts = (text || '').trim().split(/[\s]+/).filter(Boolean);
+      const a = parts[0]?.[0] || '';
+      const b = parts[1]?.[0] || '';
+      return (a + b).toUpperCase() || '•';
+    }
+
+    function el(tag, attrs = {}, children = []){
+      const node = document.createElement(tag);
+      Object.entries(attrs).forEach(([k,v]) => {
+        if(k === 'class') node.className = v;
+        else node.setAttribute(k, v);
+      });
+      children.forEach(c => node.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
+      return node;
+    }
+
+    function createDocs(docs = []){
+      if(!docs.length) return null;
+      const grid = el('div', {class:'docs', 'aria-label':'Documentation'});
+      docs.forEach((src, idx) => {
+        const fig = el('figure', { class:'doc-thumb', title: 'Click to open' });
+        const img = el('img', { alt: `Documentation ${idx+1}`, src });
+        img.onerror = () => { img.src = PLACEHOLDER; };
+        const label = el('span', {class:'doc-label'}, ['Documentation']);
+        fig.appendChild(img);
+        fig.appendChild(label);
+        fig.addEventListener('click', () => openModal(src, 'Documentation'));
+        grid.appendChild(fig);
+      });
+      return grid;
+    }
+
+    function createItem(item){
+      const left = document.createElement('div');
+      left.className = 'org-logo';
+      left.title = item.org;
+
+      if(item.logo){
+        const img = document.createElement('img');
+        img.alt = `${item.org} logo`;
+        img.src = item.logo;
+        img.onerror = () => { left.textContent = initials(item.org); };
+        left.appendChild(img);
+      }else{
+        left.textContent = initials(item.org);
+      }
+
+      const title = el('p', {class:'exp-title'}, [item.title]);
+      const sub1 = el('div', {class:'exp-sub'}, [`${item.org} • ${item.type} • ${item.dates}`]);
+      const sub2 = el('div', {class:'exp-sub'}, [item.location]);
+
+      const bullets = document.createElement('ul');
+      bullets.className = 'bullets';
+      (item.bullets || []).forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = t;
+        bullets.appendChild(li);
+      });
+
+      const tags = el('div', {class:'tags', 'aria-label':'Skills'});
+      (item.skills || []).forEach(s => tags.appendChild(el('span', {class:'tag'}, [s])));
+
+      const right = el('div', {}, [title, sub1, sub2, bullets, tags]);
+      const docs = createDocs(item.docs || []);
+      if(docs) right.appendChild(docs);
+
+      return el('article', {class:'exp-item'}, [left, right]);
+    }
+
+    function renderList(rootId, list){
+      const root = document.getElementById(rootId);
+      if(!root) return;
+      root.innerHTML = '';
+      list.forEach(item => root.appendChild(createItem(item)));
+    }
+
+    function renderCerts(rootId, list){
+      const root = document.getElementById(rootId);
+      if(!root) return;
+
+      const sorted = [...(list || [])].sort((a,b) => (b.year||'').localeCompare(a.year||''));
+      root.innerHTML = '';
+
+      sorted.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'cert-item';
+
+        const logo = document.createElement('div');
+        logo.className = 'cert-logo';
+        logo.textContent = initials(c.issuer);
+
+        const right = document.createElement('div');
+
+        const title = document.createElement('p');
+        title.className = 'cert-title';
+        title.textContent = c.title;
+
+        const meta = document.createElement('div');
+        meta.className = 'cert-meta';
+        meta.textContent = `${c.issuer} • ${c.year}`;
+
+        right.appendChild(title);
+        right.appendChild(meta);
+
+        const actions = document.createElement('div');
+        actions.className = 'cert-actions';
+
+        if(c.cert){
+          const a = document.createElement('a');
+          a.className = 'cert-link';
+          a.href = c.cert;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = '📄 View certificate';
+          actions.appendChild(a);
+        }else{
+          const span = document.createElement('span');
+          span.className = 'cert-meta';
+          span.textContent = 'Certificate: not uploaded';
+          actions.appendChild(span);
+        }
+
+        right.appendChild(actions);
+
+        item.appendChild(logo);
+        item.appendChild(right);
+
+        root.appendChild(item);
+      });
+    }
+
+    function renderProjects(rootId, list){
+      const root = document.getElementById(rootId);
+      if(!root) return;
+
+      const sorted = [...(list || [])].sort((a,b) => (b.year||'').localeCompare(a.year||''));
+      root.innerHTML = '';
+
+      sorted.forEach(p => {
+        const wrap = document.createElement('div');
+        wrap.className = 'project-item';
+
+        const title = document.createElement('p');
+        title.className = 'project-title';
+        title.textContent = p.title || 'Untitled Project';
+
+        const meta = document.createElement('div');
+        meta.className = 'project-meta';
+        meta.textContent = `${p.role || 'Project'} • ${p.year || ''}`.trim();
+
+        const desc = document.createElement('p');
+        desc.className = 'project-desc';
+        desc.textContent = p.desc || '';
+
+        const tags = document.createElement('div');
+        tags.className = 'project-tags';
+        (p.tags || []).forEach(t => {
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = t;
+          tags.appendChild(tag);
+        });
+
+        const actions = document.createElement('div');
+        actions.className = 'project-actions';
+
+        if(p.demo){
+          const a = document.createElement('a');
+          a.className = 'proj-link';
+          a.href = p.demo;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = '🔗 Live demo';
+          actions.appendChild(a);
+        }
+
+        if(p.repo){
+          const b = document.createElement('a');
+          b.className = 'proj-link ghost';
+          b.href = p.repo;
+          b.target = '_blank';
+          b.rel = 'noopener';
+          b.textContent = '💾 Repo';
+          actions.appendChild(b);
+        }
+
+        wrap.appendChild(title);
+        wrap.appendChild(meta);
+        if(p.desc) wrap.appendChild(desc);
+        if((p.tags || []).length) wrap.appendChild(tags);
+        if(actions.childNodes.length) wrap.appendChild(actions);
+
+        root.appendChild(wrap);
+      });
+    }
+
+    renderList('expRoot', EXPERIENCE);
+    renderList('leadRoot', LEADERSHIP);
+    renderList('awardRoot', AWARDS);
+    renderCerts('certRoot', CERTIFICATIONS);
+    renderProjects('projectRoot', PROJECTS);
+
+    // Footer year
+    const yearEl = document.getElementById('year');
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Copy link (AMAN: kalau tombolnya tidak ada, tidak error)
+    const copyBtn = document.getElementById('copyLinkBtn');
+    if(copyBtn){
+      copyBtn.addEventListener('click', async () => {
+        const url = window.location.href;
+        try{ await navigator.clipboard.writeText(url); alert('Link copied!'); }
+        catch{ prompt('Copy manually:', url); }
+      });
+    }
+
+    // Modal dokumentasi
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+
+    function openModal(src, title){
+      if(src && src.toLowerCase().endsWith('.pdf')){ window.open(src, '_blank'); return; }
+      modalImg.src = src;
+      modalTitle.textContent = title || 'Documentation';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      modalImg.src = '';
+    }
+
+    const closeBtn = document.getElementById('closeModal');
+    if(closeBtn) closeBtn.addEventListener('click', closeModal);
+    if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+    // ====== Welcome Popup logic ======
+    const welcomeModal = document.getElementById('welcomeModal');
+    const welcomeOkBtn = document.getElementById('welcomeOkBtn');
+    const welcomeDontBtn = document.getElementById('welcomeDontBtn');
+
+    function openWelcome(){
+      if(!welcomeModal) return;
+      welcomeModal.classList.add('open');
+      welcomeModal.setAttribute('aria-hidden','false');
+    }
+
+    function closeWelcome(){
+      if(!welcomeModal) return;
+      welcomeModal.classList.remove('open');
+      welcomeModal.setAttribute('aria-hidden','true');
+    }
+
+    window.addEventListener('load', () => {
+      openWelcome();
+    });
+
+    if(welcomeOkBtn) welcomeOkBtn.addEventListener('click', closeWelcome);
+
+    if(welcomeDontBtn){
+      welcomeDontBtn.addEventListener('click', () => {
+        localStorage.setItem('welcome_dismissed', '1');
+        closeWelcome();
+      });
+    }
+
+    if(welcomeModal){
+      welcomeModal.addEventListener('click', (e) => {
+        if(e.target === welcomeModal) closeWelcome();
+      });
+    }
+
+    // Escape: kalau welcome modal lagi open -> tutup welcome.
+    // kalau tidak, dan dokumentasi open -> tutup dokumentasi.
+    window.addEventListener('keydown', (e) => {
+      if(e.key !== 'Escape') return;
+
+      if(welcomeModal && welcomeModal.classList.contains('open')){
+        closeWelcome();
+        return;
+      }
+      if(modal && modal.classList.contains('open')){
+        closeModal();
+        return;
+      }
+    });
+  </script>
+</body>
+</html>
